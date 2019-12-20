@@ -22,19 +22,26 @@ namespace BlogDTO
             ConnectionStr = ConfigurationManager.ConnectionStrings["DBBLOG"].ConnectionString;
         }
         public string ConnectionStr { get; set; }
-        public ArticleDTO GetById(int id)
+        public async Task<ArticleDTO> GetById(int id)
         {
-            var itemById=articleRep.FindById(id);
+            
+            var itemById= await articleRep.FindById(id);
             var mappedItem = MapDALtoDTO(itemById);
-            //todo add mapper
-            //todo finish mapping all fields
             return mappedItem;// new ArticleDTO itemById;
+            
         }
         private ArticleDTO MapDALtoDTO(Article curArticle)
         {
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Article, ArticleDTO>());
             IMapper iMapper = configuration.CreateMapper();
             ArticleDTO curArticleDTO = iMapper.Map<Article, ArticleDTO>(curArticle);
+            return curArticleDTO;
+        }
+        private Task<ArticleDTO> MapDALtoDTO(Task<Article> curArticle)
+        {
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Task<Article>, Task<ArticleDTO>>());
+            IMapper iMapper = configuration.CreateMapper();
+            Task<ArticleDTO> curArticleDTO = iMapper.Map<Task<Article>, Task<ArticleDTO>>(curArticle);
             return curArticleDTO;
         }
     }

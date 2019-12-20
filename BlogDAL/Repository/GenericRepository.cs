@@ -30,9 +30,9 @@ namespace BlogDAL.Repository
             throw new NotImplementedException();
         }
 
-        public T FindById(int id)
+        public async Task<T> FindById(int id)
         {
-            var item = _db.SingleById<T>(id);
+            var item = await _db.SingleByIdAsync<T>(id);
             return item;
         }
 
@@ -57,7 +57,7 @@ namespace BlogDAL.Repository
         }
 
         public List<T> GetDataWithQuery(Sql sql)
-        {
+        {       
             throw new NotImplementedException();
         }
 

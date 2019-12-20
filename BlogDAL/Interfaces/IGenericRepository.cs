@@ -13,7 +13,7 @@ namespace BlogDAL.Interfaces
 
         void CreateBulk(IEnumerable<T> items);
         int Create(T item);
-        T FindById(int id);
+        Task<T> FindById(int id);
         T FindById(string id);
         IQueryProviderWithIncludes<T> Get();
         void Remove(T item);

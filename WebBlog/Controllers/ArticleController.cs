@@ -3,6 +3,7 @@ using BlogDTO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebBlog.Mappers;
@@ -25,9 +26,9 @@ namespace WebBlog.Controllers
 
         // GET: Article/Details/5
         //todo add view this action
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var Article=_articleService.GetById(id);
+            var Article= await _articleService.GetById(id);
             var mappedArticle = WebMapper< ArticleViewModel, ArticleDTO>.MapDTOtoView(Article);
             return View(mappedArticle);
         }
